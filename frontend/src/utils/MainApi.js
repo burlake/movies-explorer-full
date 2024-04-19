@@ -110,7 +110,7 @@ class ApiMain {
 
 /*создаю экземпляр класса Api - baseUrl: 'https://api.movie-bur.nomoredomainswork.ru',*/
 const apiMain = new ApiMain({
-  baseUrl: "http://localhost:3000",
+  baseUrl: "https://api.movie-bur.nomoredomainswork.ru",
 });
 
 export default apiMain;

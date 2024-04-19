@@ -1,13 +1,16 @@
 # Проект: Фильмы 🎥
 
 # Макет - dark-4 <h1>
-
 https://www.figma.com/file/6FMWkB94wE7KTkcCgUXtnC/Дипломный-проект?type=design&node-id=1-9662&mode=design&t=pdg8ikfECAEn5j8R-0
 
-
-IP  x.x.x.x
+# Данные деплоя: <h1>
+IP  51.250.107.65
 Frontend  https://movie-bur.nomoredomainswork.ru
 Backend  https://api.movie-bur.nomoredomainswork.ru
+
+# Ссылка на пул реквест:  <h1>
+https://github.com/burlake/movies-explorer-frontend/pull/7
+
 
 ## Дипломная работа по итогу завершения обучения на курсе от платформы "Яндекс Практикум" по направлению "Веб-разработчик".</h2>
 ### Используемые технологии:<h3>

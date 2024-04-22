@@ -13,6 +13,8 @@ function useFormValidation() {
     const valid = event.target.validity.valid;
     const form = event.target.form; //воспринимает как 2 разных инпута = 2 разные форма - откладываю
 
+    const email = event.target.email;
+
     setIsInputValid((oldIsInputValid) => {
       return { ...oldIsInputValid, [name]: valid };
     });
@@ -24,6 +26,7 @@ function useFormValidation() {
     setError((oldErrors) => {
       return { ...oldErrors, [name]: validationMessage };
     });
+
 
     setIsValid(form.checkValidity());
   }

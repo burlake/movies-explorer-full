@@ -3,33 +3,13 @@ import useFormValidation from "../../utils/useFormValidation";
 import Input from "../Input/Input";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
+const patternName = '[a-zA-Zа-яА-ЯЁё \\-]';
+const patternEmail = '^[a-z0-9.!#_^\\s@]+@[^\\s@]+\\.[^\\s@]+$';
 
 export default function Register({ onRegister, setIsError, error }) {
   const { values, errors, isValid, isInputValid, handleChange } = useFormValidation()
   const navigate = useNavigate()
   const [email, setEmail] = useState()
-  // const [password, setPassword] = useState()
-  // const [emailDirty, setEmailDirty] = useState(false)
-  // const [passwordDirty, setPasswordDirty] = useState(false)
-  const [emailError, setEmailError] = useState("Адрес почты с ошибкой - формат example@example.ru")
-  // const [passwordError, setPasswordError] = useState("Парольне может быть пустым")
-
-
-  const emailHandler = (evt) => {
-    setEmail(evt.target.value)
-
-      const re =  /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
-      if (!re.test(String(evt.target.value).toLowerCase())) {
-        setEmailError("Некорректно")
-      } else {
-        setEmailError("")
-      };
-
-    };
-
-
-
-
 
   function onSubmit(event) {
     event.preventDefault()
@@ -37,10 +17,47 @@ export default function Register({ onRegister, setIsError, error }) {
     navigate('/movies')
   }
 
+
+    //const emailHandler = (evt) => {
+    // setEmail(evt.target.value)
+    //var query = /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
+      // const re =  /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
+      // if (!re.test(String(evt.target.value).toLowerCase())) {
+      //   setEmailError("Некорректно")
+      // } else {
+      //   setEmailError("error_email")
+      // };
+
+    //};
+
+  // function emailCheck(email)
+  // {
+  //     var re = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,10}$/;
+  //     return re.test(email);
+  // }
+
+  // // function emailCheck() {
+  //   let query = /[^|\w](\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*)/g;
+
+  //   let inp = document.querySelector("#email");
+
+  //   document.querySelector('.login__button').onCllick= function (e) {
+  //     e.preventDefault();
+  //     if (!query.test(inp.value)) {
+  //       console.log("NO");
+
+  //     } else {
+  //       onSubmit()
+  //     };
+  //   }
+  //   };
+
   return (
-    <RegistrationForm name='signup' onSubmit={onSubmit} isValid={isValid} setIsError={setIsError}>
+    <RegistrationForm class="js-form" name='signup' onSubmit={onSubmit} isValid={isValid} setIsError={setIsError}>
       <p className="form__name">Имя</p>
       <Input
+      class="input js-input"
+      id = "inputFeature"
         name='name'
         type='text'
         title='Имя'
@@ -55,10 +72,11 @@ export default function Register({ onRegister, setIsError, error }) {
         minLength = '2'
         maxLength = '20'
         autocomplete="name"
-        pattern="/^[А-ЯA-ZёәіңғүұқөһӘІҢҒҮҰҚӨҺ\h-]+$/umi"
+        pattern={ patternName}
       />
       <p className="form__name">Email</p>
       <Input
+      class="input js-input js-input-email"
         id="email"
         name='email'
         type="email"
@@ -67,13 +85,12 @@ export default function Register({ onRegister, setIsError, error }) {
         onChange={(evt) => {
           handleChange(evt)
           setIsError(false)
-          emailHandler(evt)
         }}
         isInputValid={isInputValid.email}
         error={errors.email}
         autocomplete="email"
-        pattern = {/^[a-zA-Z0-9+\._\-]+@[a-zA-Z0-9]+\.[a-zA-Z0-9]{2,4}$/.source}
-      />
+        pattern = {patternEmail}/>
+      <span id="error_email" className="error_email error_email_invisible">"Формат example@example.ru</span>
       <p className="form__name">Пароль</p>
       <Input
         name='password'

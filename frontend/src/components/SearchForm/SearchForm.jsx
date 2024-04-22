@@ -1,19 +1,29 @@
 import "./SearchForm.css";
-import { useContext, useEffect } from "react";
 import "../App";
 
+import { useContext, useEffect } from "react";
 import { useLocation } from "react-router-dom";
-import ErrorContext from '../../contexts/ErrorContext'
 
 import useFormValidation from "../../utils/useFormValidation";
 import Filter from "../Filter/Filter";
 
+import ErrorContext from "../../contexts/ErrorContext";
+import SendContext from "../../contexts/SendContext";
+
+
+
 function Search({
-  isCheck, searchedMovie, searchMovies, setIsError, savedMovie, movies, filter, setIsCheck
+  savedMovie,
+  isCheck,
+  changeShort,
+  searchMovies,
+  setIsError,
+  searchedMovie
 }) {
   const { pathname } = useLocation();
-  const { values, handleChange, reset} = useFormValidation() ;
-
+  const { values, isValid, handleChange, reset} = useFormValidation() ;
+  const isError = useContext(ErrorContext);
+  const isSend = useContext(SendContext);
 
   useEffect(() => {
     if ((pathname === '/saved-movies' && savedMovie.length === 0)) {
@@ -36,7 +46,7 @@ function Search({
     event.preventDefault();
     if (event.target.search.value) {
       searchMovies(event.target.search.value);
-      setIsError(false)
+      setIsError(false);
     } else {
       setIsError(true);
       showError()
@@ -45,15 +55,6 @@ function Search({
     console.log("onSubmit",onSubmit);
   }
 
-  function changeShort() {
-    if (isCheck) {
-      setIsCheck(false)
-      filter(values.search, false, movies)
-    } else {
-      setIsCheck(true)
-      filter(values.search, true, movies)
-    }
-  }
 
 
   return (
@@ -100,8 +101,6 @@ function Search({
           <p className="search-form__error-text_disabled search-form__error-text">Нужно ввести ключевое слово</p>
         </div>
         <Filter isCheck={isCheck} changeShort={changeShort} />
-
-
       </section>
     </div>
   );

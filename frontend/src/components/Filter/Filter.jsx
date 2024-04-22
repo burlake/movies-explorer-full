@@ -4,7 +4,7 @@ export default function Filter({ isCheck, changeShort }) {
 <div className="search__check">
           <div className="search__check-container">
             {/* toggle switch -  isCheck={isCheck} */}
-            <input type="checkbox"id="switch"  onChange={() => changeShort()}  />
+            <input type="checkbox"id="switch"  onChange={ changeShort}  />
             <label
               htmlFor="switch"
               className={`search__check-svg-circle ${

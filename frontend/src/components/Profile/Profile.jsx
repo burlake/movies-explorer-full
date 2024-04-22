@@ -64,7 +64,7 @@ export default function Profile({
         <p className="profile__text">
           Имя
           <Input
-            className="'popup__input"
+          id="profile__input"
             selectname={name}
             name="name"
             type="text"
@@ -90,7 +90,7 @@ export default function Profile({
         <p className="profile__text">
           E-mail
           <Input
-            className="profile__area profile__area_type_email"
+            className="profile__area profile__area_type_email profile__input"
             selectname={name}
             name="email"
             type="email"

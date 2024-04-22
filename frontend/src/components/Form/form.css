@@ -2,7 +2,9 @@
   max-width: 358px;
   display: grid;
   grid-template-rows: 37px;
+  text-align: left;
 }
+
 
 @media screen and (max-width: 620px) {
   .form {

@@ -44,7 +44,7 @@
   justify-content: space-between;
 }
 
-@media screen and (max-width: 767px) {
+@media screen and (max-width: 747px) {
   .footer__container {
     padding-top: 30px;
     padding-bottom: 17px;
@@ -117,23 +117,22 @@
 }
 
 
+
 * {
   margin: 0;
   padding: 0;
-}
-html,
-body,
-.wrapper {
+  }
+
+  body {
   height: 100%;
-}
-.content {
-  box-sizing: border-box;
-  min-height: 100%;
-  padding-bottom: 90px;
-}
-.footer {
-  height: 80px;
-  margin-top: -80px;
-}
+  }
 
+  .page {
+  min-height: 10vh;
+  display: flex;
+  flex-direction: column;
+  }
 
+  .main {
+  flex: 1 1 auto;
+  }

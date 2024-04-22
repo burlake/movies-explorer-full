@@ -115,15 +115,20 @@
 }
 
 .profile__button {
-  margin: 19px 0 16px;
+  display: block;
+  width: 100%;
+  margin-top: 20px;
+  padding: 0;
   border: none;
   background-color: transparent;
-  color: #ffffff;
-  font-size: 13px;
-  line-height: 16px;
   text-align: center;
-  text-decoration: none;
-  transition: opacity 0.2s linear;
+  font-size: 13px;
+  font-weight: 400;
+  line-height: normal;
+  color: var(--main-font-color);
+  cursor: pointer;
+  margin-bottom: 30px;
+  transition: opacity 0.3s linear;
 }
 
 .profile__button:hover {

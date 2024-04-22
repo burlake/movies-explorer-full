@@ -126,12 +126,6 @@
   cursor: pointer;
 }
 
-.gallery__addition_more:hover {
-  opacity: 0.5;
-  transition: linear 0.3s;
-  cursor: pointer;
-}
-
 .header__logo_form:hover {
   opacity: 0.5;
   transition: linear 0.3s;

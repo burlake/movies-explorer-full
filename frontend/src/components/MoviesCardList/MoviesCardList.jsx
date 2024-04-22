@@ -20,17 +20,17 @@ export default function MoviesCardList({
 
   function printCards() {
     const counter = { init: 12, step: 3 };
-    if (window.innerWidth < 1280) {
+    if (window.innerWidth < 1280) { //работает с ... до 1140 (добавляется по 3)
       counter.init = 12;
       counter.step = 3;
     }
-    if (window.innerWidth < 1024) {
+    if (window.innerWidth < 1140) { //работает с 1130 до 726 (добавляется по 2)
       counter.init = 8;
       counter.step = 2;
     }
-    if (window.innerWidth < 650) {
+    if (window.innerWidth < 650) { //работает с 775 до 320 (добавляется по 2)
       counter.init = 5;
-      counter.step = 1;
+      counter.step = 2;
     }
     return counter;
   }
@@ -62,7 +62,7 @@ export default function MoviesCardList({
   }
 
   return (
-    <section name={name}>
+    <section className="gallery_size" name={name}>
       <ul className="gallery">
         {isLoading ? (
           <Preloader />

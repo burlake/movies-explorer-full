@@ -2,17 +2,34 @@ import RegistrationForm from "../RegistrationForm/RegistrationForm";
 import useFormValidation from "../../utils/useFormValidation";
 import Input from "../Input/Input";
 import { useNavigate } from "react-router-dom";
-
+import { useState } from "react";
 
 export default function Register({ onRegister, setIsError, error }) {
   const { values, errors, isValid, isInputValid, handleChange } = useFormValidation()
   const navigate = useNavigate()
+  const [email, setEmail] = useState()
+  // const [password, setPassword] = useState()
+  // const [emailDirty, setEmailDirty] = useState(false)
+  // const [passwordDirty, setPasswordDirty] = useState(false)
+  const [emailError, setEmailError] = useState("Адрес почты с ошибкой - формат example@example.ru")
+  // const [passwordError, setPasswordError] = useState("Парольне может быть пустым")
 
-  // function onLogin (event) {
-    // event.preventDefault()
-    // console.log("onRegister", username, email, password); //undefined undefined undefined
-    // onRegister(values.name, values.email, values.password)
-  // }
+
+  const emailHandler = (evt) => {
+    setEmail(evt.target.value)
+
+      const re =  /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
+      if (!re.test(String(evt.target.value).toLowerCase())) {
+        setEmailError("Некорректно")
+      } else {
+        setEmailError("")
+      };
+
+    };
+
+
+
+
 
   function onSubmit(event) {
     event.preventDefault()
@@ -38,20 +55,24 @@ export default function Register({ onRegister, setIsError, error }) {
         minLength = '2'
         maxLength = '20'
         autocomplete="name"
+        pattern="/^[А-ЯA-ZёәіңғүұқөһӘІҢҒҮҰҚӨҺ\h-]+$/umi"
       />
       <p className="form__name">Email</p>
       <Input
+        id="email"
         name='email'
-        type='email'
+        type="email"
         placeholder={'Email'}
         value={values.email}
         onChange={(evt) => {
           handleChange(evt)
           setIsError(false)
+          emailHandler(evt)
         }}
         isInputValid={isInputValid.email}
         error={errors.email}
         autocomplete="email"
+        pattern = {/^[a-zA-Z0-9+\._\-]+@[a-zA-Z0-9]+\.[a-zA-Z0-9]{2,4}$/.source}
       />
       <p className="form__name">Пароль</p>
       <Input

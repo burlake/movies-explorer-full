@@ -48,7 +48,7 @@ export default function Profile({
   }
 
   return (
-    <section className="profile">
+    <section className="profile" >
       <h2 className="profile__greeting">{`Привет, ${currentUser.name}!`}</h2>
       <Form
         className="profile__form"
@@ -113,20 +113,11 @@ export default function Profile({
           {isError ? "При обновлении профиля произошла ошибка." : "Успешно"}
         </span>
         <button
-            className={`profile__submit ${(values.name === currentUser.name && values.email === currentUser.email) || !isValid || isError ? 'profile__submit_disabled' : ''}`}
+            className={`profile__button ${(values.name === currentUser.name && values.email === currentUser.email) || !isValid || isError ? 'profile__button_disabled' : ""} `}
             disabled={!isValid || isSend || isError}
-            >Сохранить изменения</button>
+            onClick={onSubmit}
+            >Редактировать</button>
       </Form>
-      <Link
-        to="/profile"
-        type="button"
-        onClick={ onSubmit }
-        className="profile__button"
-        disabled={!isValid }
-
-      >
-        Редактировать
-      </Link>
       <Link to="/" onClick={logOut} className="profile__link">
         Выйти из аккаунта
       </Link>

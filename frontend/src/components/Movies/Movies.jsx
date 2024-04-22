@@ -16,19 +16,15 @@ export default function Movies({ setIsError, addMovie, savedMovies }) {
   const [firstEntrance, setFirstEntrance] = useState(true);
 
   const filter = useCallback((search, isCheck, movies) => {
-    setSearchedMovie(search);
-    localStorage.setItem("movie", JSON.stringify(search));
-    localStorage.setItem("shorts", JSON.stringify(isCheck));
-    localStorage.setItem("allmovies", JSON.stringify(movies));
-    setFilteredMovies(
-      movies.filter((movie) => {
-        const searchName = movie.nameRU
-          .toLowerCase()
-          .includes(search.toLowerCase());
-        return isCheck ? searchName && movie.duration <= 40 : searchName;
-      })
-    );
-  }, []);
+    setSearchedMovie(search)
+    localStorage.setItem('movie', JSON.stringify(search))
+    localStorage.setItem('shorts', JSON.stringify(isCheck))
+    localStorage.setItem('allmovies', JSON.stringify(movies))
+    setFilteredMovies(movies.filter((movie) => {
+      const searchName = movie.nameRU.toLowerCase().includes(search.toLowerCase())
+      return isCheck ? (searchName && movie.duration <= 40) : searchName
+    }))
+  }, [])
 
   function searchMovies(search) {
     if (allMovies.length === 0) {
@@ -66,17 +62,17 @@ export default function Movies({ setIsError, addMovie, savedMovies }) {
     }
   }, [filter]);
 
-  function changeShort() {
-    if (isCheck) {
-      setIsCheck(false);
-      filter(searchedMovie, false, allMovies);
-      localStorage.setItem("shorts", JSON.stringify(false));
-    } else {
-      setIsCheck(true);
-      filter(searchedMovie, true, allMovies);
-      localStorage.setItem("shorts", JSON.stringify(true));
-    }
-  }
+  // function changeShort() {
+  //   if (isCheck) {
+  //     setIsCheck(false);
+  //     filter(searchedMovie, false, allMovies);
+  //     localStorage.setItem("shorts", JSON.stringify(false));
+  //   } else {
+  //     setIsCheck(true);
+  //     filter(searchedMovie, true, allMovies);
+  //     localStorage.setItem("shorts", JSON.stringify(true));
+  //   }
+  // }
 
   return (
     <>
@@ -84,9 +80,11 @@ export default function Movies({ setIsError, addMovie, savedMovies }) {
         isCheck={isCheck}
         searchMovies={searchMovies}
         searchedMovie={searchedMovie}
-        changeShort={changeShort}
         setIsError={setIsError}
         firstEntrance={firstEntrance}
+        movies={allMovies}
+        filter={filter}
+        setIsCheck={setIsCheck}
       />
       <MoviesCardList
         movies={filteredMovies}

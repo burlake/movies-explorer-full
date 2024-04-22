@@ -19,6 +19,12 @@
 
 ## Ссылки на проект
 
-IP 130.193.41.246
+IP 51.250.107.65
 
 Backend https://api.movie-bur.nomoredomainswork.ru/
+
+
+ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQDSlgttkxhyK5nQYS+mb1ZTQG4iBcpGMS8EOj1gzrMHbgUs6ozQ3J54yRZAzlPpiHr0>
+
+
+ 

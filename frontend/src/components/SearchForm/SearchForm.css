@@ -13,8 +13,8 @@
 @media screen and (max-width: 767px) {
   .page__search {
     padding-top: 70px;
-    padding-left: 14px;
-    padding-right: 14px;
+    padding-left: 32px;
+    padding-right: 5px;
   }
 }
 
@@ -25,6 +25,11 @@
     padding-right: 14px;
   }
 }
+
+.search-form__error-text_disabled{
+  opacity: 0;
+}
+
 
 .search__container {
   width: 100%;
@@ -331,3 +336,5 @@ centering body {
   align-items: center;
   height: 100vh;
 }
+
+

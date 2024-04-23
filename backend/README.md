@@ -19,7 +19,7 @@
 
 ## Ссылки на проект
 
-IP 51.250.107.65
+IP 84.201.164.228
 
 Backend https://api.movie-bur.nomoredomainswork.ru/
 

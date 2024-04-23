@@ -110,7 +110,7 @@ class ApiMain {
 
 /*создаю экземпляр класса Api - baseUrl: 'api.movie-liz.nomoredomainswork.ru',*/
 const apiMain = new ApiMain({
-  baseUrl: "https://api.movie-liz.nomoredomainswork.ru",
+  baseUrl: "api.movieliza.nomoredomainswork.ru",
 });
 
 export default apiMain;

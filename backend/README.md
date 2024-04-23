@@ -21,7 +21,7 @@
 
 IP 84.201.164.228
 
-Backend https://api.movie-bur.nomoredomainswork.ru/
+Backend api.movieliza.nomoredomainswork.ru
 
 
 ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQDSlgttkxhyK5nQYS+mb1ZTQG4iBcpGMS8EOj1gzrMHbgUs6ozQ3J54yRZAzlPpiHr0>

@@ -7,9 +7,9 @@ https://www.figma.com/file/6FMWkB94wE7KTkcCgUXtnC/Дипломный-проек�
 https://github.com/burlake/movies-explorer-frontend/pull/7
 
 # Данные деплоя: <h1>
-IP 84.201.164.228
-Frontend  movieliza.nomoredomainswork.ru
-Backend  api.movieliza.nomoredomainswork.ru
+IP  158.160.8.70
+Frontend  moviesliza.nomoredomainswork.ru
+Backend  api.moviesliza.nomoredomainswork.ru
 
 # Проект, который на задеплоин:  <h1>
 https://github.com/burlake/movies-explorer-full

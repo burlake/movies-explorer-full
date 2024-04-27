@@ -1,12 +1,12 @@
 import { useContext, useEffect } from "react";
 import { Link } from "react-router-dom";
-import "./profile.css";
-import useFormValidation from "../../utils/useFormValidation";
 import CurrentUserContext from "../../contexts/CurrentUserContext";
 import ErrorContext from "../../contexts/ErrorContext";
 import SendContext from "../../contexts/SendContext";
-import Input from "../Input/Input";
+import useFormValidation from "../../utils/useFormValidation";
 import Form from "../Form/Form";
+import { EmailInput, UsernameInput } from "../Register/Input";
+import "./profile.css";
 
 export default function Profile({
   name,
@@ -23,7 +23,6 @@ export default function Profile({
   const { values, errors, isInputValid, isValid, handleChange, reset } =
     useFormValidation();
   const isError = useContext(ErrorContext);
-  const isSend = useContext(SendContext);
 
   useEffect(() => {
     setIsError(false);
@@ -36,19 +35,22 @@ export default function Profile({
 
   useEffect(() => {
     function fetchBusinesses() {
-        reset({ name: currentUser.name, email: currentUser.email });
+      reset({ name: currentUser.name, email: currentUser.email });
     }
-    fetchBusinesses()
+    fetchBusinesses();
     // eslint-disable-next-line
-  }, [currentUser])
+  }, [currentUser]);
 
   function onSubmit(evt) {
     evt.preventDefault();
     editUserData(values.name, values.email);
   }
 
+  const didUserInfoChange =
+    values.name !== currentUser.name || values.email !== currentUser.email;
+  const canEdit = didUserInfoChange && isValid && !isError;
   return (
-    <section className="profile" >
+    <section className="profile">
       <h2 className="profile__greeting">{`Привет, ${currentUser.name}!`}</h2>
       <Form
         className="profile__form"
@@ -63,18 +65,12 @@ export default function Profile({
       >
         <p className="profile__text">
           Имя
-          <Input
-          id="profile__input"
-            selectname={name}
-            name="name"
-            type="text"
-            title="Имя"
-            minLength="3"
-            value={values.name}
+          <UsernameInput
+            id="profile__input"
+            value={values.name ?? ""}
+            onChange={handleChange}
             isInputValid={isInputValid.name}
             error={errors.name}
-            onChange={handleChange}
-            isEdit={isEdit}
           />
         </p>
         <span
@@ -89,18 +85,12 @@ export default function Profile({
 
         <p className="profile__text">
           E-mail
-          <Input
+          <EmailInput
             className="profile__area profile__area_type_email profile__input"
-            selectname={name}
-            name="email"
-            type="email"
-            title="E-mail"
-            value={values.email}
+            value={values.email ?? ""}
             isInputValid={isInputValid.email}
             error={errors.email}
             onChange={handleChange}
-            pattern={"^\\S+@\\S+\\.\\S+$"}
-            isEdit={isEdit}
           />
         </p>
         <span
@@ -113,10 +103,14 @@ export default function Profile({
           {isError ? "При обновлении профиля произошла ошибка." : "Успешно"}
         </span>
         <button
-            className={`profile__button ${(values.name === currentUser.name && values.email === currentUser.email) || !isValid || isError ? 'profile__button_disabled' : ""} `}
-            disabled={!isValid || isSend || isError}
-            onClick={onSubmit}
-            >Редактировать</button>
+          className={`profile__button ${
+            !canEdit ? "profile__button_disabled" : ""
+          }`}
+          disabled={!canEdit}
+          onClick={onSubmit}
+        >
+          Редактировать
+        </button>
       </Form>
       <Link to="/" onClick={logOut} className="profile__link">
         Выйти из аккаунта

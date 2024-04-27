@@ -1,93 +1,87 @@
-import { useCallback, useState } from "react";
-import { useEffect } from "react";
-
+import { useEffect, useMemo, useRef, useState } from "react";
+import { useSearchParams } from "react-router-dom";
 import apiMovies from "../../utils/MoviesApi";
 
 import MoviesCardList from "../MoviesCardList/MoviesCardList";
 import SearchForm from "../SearchForm/SearchForm";
+import { filterMovies } from "../../hooks/movies";
 
 export default function Movies({ setIsError, addMovie, savedMovies }) {
-  const [allMovies, setAllMovies] = useState([]);
-  const [filteredMovies, setFilteredMovies] = useState([]);
-  const [searchedMovie, setSearchedMovie] = useState("");
-  const [isCheck, setIsCheck] = useState(false);
-  const [isLoading, setIsLoading] = useState(false);
+  const [allMovies, setAllMovies] = useState(() => []);
+  const [isLoading, setIsLoading] = useState(true);
   const [serverError, setServerError] = useState(false);
   const [firstEntrance, setFirstEntrance] = useState(true);
+  const [params, setParams] = useSearchParams();
+  const filter = params.get("filter");
+  const isShortsOnlyParam = params.get("only-shorts");
+  const isShortsOnly = !!isShortsOnlyParam;
+  const filteredMovies = useMemo(
+    () => (filter ? filterMovies(allMovies, filter, isShortsOnly) : []),
+    [allMovies, filter, isShortsOnly]
+  );
 
-  const filter = useCallback((search, isCheck, movies) => {
-    setSearchedMovie(search);
-    localStorage.setItem("movie", JSON.stringify(search));
-    localStorage.setItem("shorts", JSON.stringify(isCheck));
-    localStorage.setItem("allmovies", JSON.stringify(movies));
-    setFilteredMovies(
-      movies.filter((movie) => {
-        const searchName = movie.nameRU
-          .toLowerCase()
-          .includes(search.toLowerCase());
-        return isCheck ? searchName && movie.duration <= 40 : searchName;
-      })
+  const isMounted = useRef(false);
+  useEffect(() => {
+    if (isMounted.current) return;
+    isMounted.current = true;
+
+    if (!!filter || !!isShortsOnlyParam) return;
+
+    const lastSearchItem = localStorage.getItem("last-search");
+    if (!lastSearchItem) return;
+
+    const lastSearch = JSON.parse(lastSearchItem);
+    setParams(
+      (params) => {
+        if (lastSearch.filter) {
+          params.set("filter", lastSearch.filter);
+        } else {
+          params.delete("filter");
+        }
+        if (lastSearch.isShortsOnly) {
+          params.set("only-shorts", lastSearch.isShortsOnly);
+        } else {
+          params.delete("only-shorts", lastSearch.isShortsOnly);
+        }
+        return params;
+      },
+      { replace: true }
     );
-  }, []);
+  }, [setParams, filter, isShortsOnlyParam]);
 
-  function searchMovies(search) {
-    if (allMovies.length === 0) {
-      setIsLoading(true);
+  useEffect(() => {
+    localStorage.setItem(
+      "last-search",
+      JSON.stringify({ filter, isShortsOnly })
+    );
+  }, [filter, isShortsOnly]);
+
+  useEffect(() => {
+    const movies = JSON.parse(localStorage.getItem("allmovies"));
+    if (!movies) {
       apiMovies
         .getMovies()
         .then((res) => {
           setAllMovies(res);
-          setIsCheck(false);
-          setServerError(false);
           setFirstEntrance(false);
-          filter(search, isCheck, res);
+          localStorage.setItem("allmovies", JSON.stringify(res));
         })
-        .catch((err) => {
+        .catch((e) => {
+          console.error(e);
           setServerError(true);
-          console.error(`Ошибкак при поске фильмов ${err}`);
         })
-        .finally(() => setIsLoading(false));
-    } else {
-      filter(search, isCheck, allMovies);
+        .finally(() => {
+          setIsLoading(false);
+        });
+      return;
     }
-  }
-
-  useEffect(() => {
-    if (localStorage.allmovies && localStorage.shorts && localStorage.movie) {
-      const movies = JSON.parse(localStorage.allmovies);
-      const search = JSON.parse(localStorage.movie);
-      const isCheck = JSON.parse(localStorage.shorts);
-      setServerError(false);
-      setFirstEntrance(false);
-      setSearchedMovie(search);
-      setIsCheck(isCheck);
-      setAllMovies(movies);
-      filter(search, isCheck, movies);
-    }
-  }, [filter]);
-
-  function changeShort() {
-    if (isCheck) {
-      setIsCheck(false);
-      filter(searchedMovie, false, allMovies);
-      localStorage.setItem("shorts", JSON.stringify(false));
-    } else {
-      setIsCheck(true);
-      filter(searchedMovie, true, allMovies);
-      localStorage.setItem("shorts", JSON.stringify(true));
-    }
-  }
+    setAllMovies(movies);
+    setIsLoading(false);
+  }, []);
 
   return (
     <>
-      <SearchForm
-        isCheck={isCheck}
-        searchMovies={searchMovies}
-        searchedMovie={searchedMovie}
-        changeShort={changeShort}
-        setIsError={setIsError}
-        firstEntrance={firstEntrance}
-      />
+      <SearchForm setIsError={setIsError} />
       <MoviesCardList
         movies={filteredMovies}
         addMovie={addMovie}

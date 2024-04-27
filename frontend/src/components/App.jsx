@@ -167,13 +167,15 @@ function App() {
                 <Route
                   path="/signup"
                   element={
-                    loggedIn ?
-                      <Navigate to="/movies" replace />:
+                    loggedIn ? (
+                      <Navigate to="/movies" replace />
+                    ) : (
                       <Main
                         name="signup"
                         onRegister={handleRegister}
                         setIsError={setIsError}
                       />
+                    )
                   }
                 />
 

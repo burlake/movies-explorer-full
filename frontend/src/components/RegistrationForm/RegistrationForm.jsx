@@ -11,7 +11,7 @@ export default function RegistrationForm({
   title,
 }) {
   return (
-    <section className="login page__login form" name={name} >
+    <section className="login page__login form" name={name}>
       <Link to={"/"}>
         <img src={logo} alt="логотип " className="header__logo_form" />
       </Link>
@@ -20,14 +20,14 @@ export default function RegistrationForm({
       </h2>
       <p className="form__name">{title}</p>
       <Form
-      className="form"
+        className="form"
         name={name}
         type="submit"
         titleButton={name === "signup" ? "Зарегистрироваться" : "Войти"}
         children={children}
         isValid={isValid}
         onSubmit={onSubmit}
-        class="btn"
+        className="btn"
       />
       {name === "signup" ? (
         <p className="login__subtitle">

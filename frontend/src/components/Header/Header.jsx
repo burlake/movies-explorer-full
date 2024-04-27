@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useSearchParams } from "react-router-dom";
 
 import "./header.css";
 
@@ -31,6 +31,7 @@ export default function Header({ name, loggedIn }) {
       return () => window.removeEventListener("resize", closeBurgerForResize);
     }
   }, [isOpen]);
+  const [params] = useSearchParams();
 
   return (
     <header
@@ -73,7 +74,13 @@ export default function Header({ name, loggedIn }) {
               </li>
               <li className="header__link-container">
                 <Link
-                  to={"/movies"}
+                  to={{
+                    pathname: "/movies",
+                    search:
+                      pathname === "/movies"
+                        ? `?${params.toString()}`
+                        : undefined,
+                  }}
                   className={`header__link ${
                     pathname === "/movies" ? "header__link_active" : ""
                   }`}

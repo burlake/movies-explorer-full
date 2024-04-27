@@ -108,9 +108,9 @@ class ApiMain {
 // Токен: ae20785e-e850-4452-960a-73f188fc9474
 // Идентификатор группы: cohort-69
 
-/*создаю экземпляр класса Api - baseUrl: 'https://api.movieliza.nomoredomainswork.ru',*/
+/*создаю экземпляр класса Api - baseUrl: 'https://api.moviesliza.nomoredomainswork.ru',*/
 const apiMain = new ApiMain({
-  baseUrl: "https://api.movieliza.nomoredomainswork.ru",
+  baseUrl: "https://api.moviesliza.nomoredomainswork.ru",
 });
 
 export default apiMain;

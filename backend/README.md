@@ -19,9 +19,9 @@
 
 ## Ссылки на проект
 
-IP 84.201.164.228
+IP 84.201.142.17
 
-Backend api.movieliza.nomoredomainswork.ru
+Backend api.moviesliza.nomoredomainswork.ru
 
 
 ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQDSlgttkxhyK5nQYS+mb1ZTQG4iBcpGMS8EOj1gzrMHbgUs6ozQ3J54yRZAzlPpiHr0>

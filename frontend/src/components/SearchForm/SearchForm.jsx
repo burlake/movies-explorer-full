@@ -1,61 +1,62 @@
-import "./SearchForm.css";
 import "../App";
+import "./SearchForm.css";
 
-import { useContext, useEffect } from "react";
-import { useLocation } from "react-router-dom";
+import { useEffect } from "react";
+import { useLocation, useSearchParams } from "react-router-dom";
 
 import useFormValidation from "../../utils/useFormValidation";
 import Filter from "../Filter/Filter";
 
-import ErrorContext from "../../contexts/ErrorContext";
-import SendContext from "../../contexts/SendContext";
-
-
-
-function Search({
-  savedMovie,
-  isCheck,
-  changeShort,
-  searchMovies,
-  setIsError,
-  searchedMovie
-}) {
+function Search({ savedMovie, setIsError }) {
   const { pathname } = useLocation();
-  const { values, isValid, handleChange, reset} = useFormValidation() ;
-  const isError = useContext(ErrorContext);
-  const isSend = useContext(SendContext);
+  const [param, setParams] = useSearchParams();
+  const filter = param.get("filter");
+
+  const { values, isValid, handleChange, reset } = useFormValidation();
 
   useEffect(() => {
-    if ((pathname === '/saved-movies' && savedMovie.length === 0)) {
-      reset({ search: '' })
+    if (pathname === "/saved-movies" && savedMovie.length === 0) {
+      reset({ search: "" });
     } else {
-      reset({ search: searchedMovie })
+      reset({ search: filter });
     }
-    setIsError(false)
-  }, [searchedMovie, setIsError, pathname, savedMovie])
+    setIsError(false);
+  }, [setIsError, pathname, savedMovie, filter, reset]);
 
   function showError(event) {
     if (values.search === 0) {
-      document.querySelector('.search-form__error-text').classList.add('search-form__error-text_disabled');
+      document
+        .querySelector(".search-form__error-text")
+        .classList.add("search-form__error-text_disabled");
     } else {
-      document.querySelector('.search-form__error-text').classList.remove('search-form__error-text_disabled');
+      document
+        .querySelector(".search-form__error-text")
+        .classList.remove("search-form__error-text_disabled");
     }
   }
 
   function onSubmit(event) {
     event.preventDefault();
-    if (event.target.search.value) {
-      searchMovies(event.target.search.value);
+    const searchValue = event.target.search.value;
+    setParams(
+      (params) => {
+        if (searchValue) {
+          params.set("filter", searchValue);
+        } else {
+          params.delete("filter");
+        }
+        return params;
+      },
+      { replace: true }
+    );
+
+    if (searchValue) {
       setIsError(false);
     } else {
       setIsError(true);
-      showError()
-
+      showError();
     }
-    console.log("onSubmit",onSubmit);
   }
-
-
 
   return (
     <div className="page">
@@ -68,7 +69,8 @@ function Search({
             onSubmit={onSubmit}
           >
             <input
-              min="1" max="10"
+              min="1"
+              max="10"
               type="text"
               name="search"
               placeholder="Фильм"
@@ -80,7 +82,6 @@ function Search({
                 setIsError(false);
               }}
               disabled={savedMovie ? savedMovie.length === 0 && true : false}
-
               required
             />
 
@@ -98,9 +99,11 @@ function Search({
               Поиск
             </button>
           </form>
-          <p className="search-form__error-text_disabled search-form__error-text">Нужно ввести ключевое слово</p>
+          <p className="search-form__error-text_disabled search-form__error-text">
+            Нужно ввести ключевое слово
+          </p>
         </div>
-        <Filter isCheck={isCheck} changeShort={changeShort} />
+        <Filter name="only-shorts" />
       </section>
     </div>
   );

@@ -2,29 +2,14 @@ import { useContext } from "react";
 import "./Input.css";
 import SendContext from "../../contexts/SendContext.js";
 
-export default function Input({
-  name,
-  type,
-  title,
-  placeholder,
-  minLength,
-  maxLength,
-  isInputValid,
-  value,
-  onChange,
-  error,
-}) {
+export default function Input({ name, isInputValid, error, ...props }) {
   const isSend = useContext(SendContext);
 
   return (
     <>
       <input
+        {...props}
         name={name}
-        type={type}
-        title={title}
-        placeholder={placeholder}
-        minLength={minLength ? minLength : ""}
-        maxLength={maxLength ? maxLength : ""}
         required
         className={`${(name =
           "name" || name === "password" || name === "email"
@@ -37,8 +22,6 @@ export default function Input({
               ? "login__input_invalid"
               : "popup__input_invalid"
           }`}
-        value={value ? value : ""}
-        onChange={onChange}
         disabled={isSend}
         autoComplete="current-password"
       />

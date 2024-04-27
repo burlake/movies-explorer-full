@@ -8,8 +8,8 @@ https://github.com/burlake/movies-explorer-frontend/pull/7
 
 # Данные деплоя: <h1>
 IP  158.160.8.70
-Frontend  movieliza.nomoredomainswork.ru
-Backend  api.movieliza.nomoredomainswork.ru
+Frontend  moviesliza.nomoredomainswork.ru
+Backend  api.moviesliza.nomoredomainswork.ru
 
 # Проект, который на задеплоин:  <h1>
 https://github.com/burlake/movies-explorer-full

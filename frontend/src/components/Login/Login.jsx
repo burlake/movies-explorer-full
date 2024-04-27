@@ -4,11 +4,7 @@ import Input from "../Input/Input";
 import RegistrationForm from "../RegistrationForm/RegistrationForm";
 import useFormValidation from "../../utils/useFormValidation";
 
-export default function Login({
-  name,
-  onLogin,
-  setIsError,
-}) {
+export default function Login({ name, onLogin, setIsError }) {
   const { values, errors, isValid, isInputValid, handleChange } =
     useFormValidation();
 
@@ -35,7 +31,7 @@ export default function Login({
           onChange={handleChange}
           isInputValid={isInputValid.email}
           error={errors.email}
-          autocomplete="email"
+          autoComplete="email"
         />
       </div>
       <div className="login_container">
@@ -50,7 +46,7 @@ export default function Login({
           onChange={handleChange}
           isInputValid={isInputValid.password}
           error={errors.password}
-          autocomplete="current-password"
+          autoComplete="current-password"
         />
       </div>
     </RegistrationForm>

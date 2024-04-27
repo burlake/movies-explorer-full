@@ -27,16 +27,15 @@ function useFormValidation() {
       return { ...oldErrors, [name]: validationMessage };
     });
 
-
     setIsValid(form.checkValidity());
   }
 
-  function reset(data = {}) {
+  const reset = useCallback(function (data = {}) {
     setValues(data);
     setError({});
     setIsValid(false);
     setIsInputValid({});
-  }
+  }, []);
 
   const setValue = useCallback((name, value) => {
     setValues((oldValues) => {

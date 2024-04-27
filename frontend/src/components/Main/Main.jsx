@@ -32,11 +32,7 @@ function Main({
             </>
           ),
           signin: (
-            <Login
-              name={name}
-              onLogin={onLogin}
-              setIsError={setIsError}
-            />
+            <Login name={name} onLogin={onLogin} setIsError={setIsError} />
           ),
           signup: (
             <Register
@@ -71,7 +67,7 @@ function Main({
           savedmovies: (
             <>
               <SavedMovies
-                savedMovie={savedMovies}
+                savedMovies={savedMovies}
                 onDelete={onDelete}
                 setIsError={setIsError}
               />

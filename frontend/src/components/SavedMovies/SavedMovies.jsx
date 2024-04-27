@@ -1,54 +1,36 @@
-import SearchForm from "../SearchForm/SearchForm";
+import { useEffect, useMemo, useState } from "react";
+import { useSearchParams } from "react-router-dom";
 import MoviesCardList from "../MoviesCardList/MoviesCardList";
-import { useCallback, useEffect, useState } from "react";
 
-export default function SavedMovies({ savedMovie, onDelete, setIsError }) {
+import SearchForm from "../SearchForm/SearchForm";
+import { filterMovies } from "../../hooks/movies";
 
-  const [filteredMovies, setFilteredMovies] = useState(savedMovie)
-  const [searchedMouvie, setSearchedMovie] = useState('')
-  const [isCheck, setIsCheck] = useState(false)
-  const [firstEntrance, setFirstEntrance] = useState(true)
-
-  const filter = useCallback((search, isCheck, movies) => {
-    setSearchedMovie(search)
-    setFilteredMovies(movies.filter((movie) => {
-      const searchName = movie.nameRU.toLowerCase().includes(search.toLowerCase())
-      return isCheck ? (searchName && movie.duration <= 40) : searchName
-    }))
-  }, [])
-
-  function searchMovies(search) {
-    setFirstEntrance(false)
-    filter(search, isCheck, savedMovie)
-  }
+export default function SavedMovies({ savedMovies, onDelete, setIsError }) {
+  const [params] = useSearchParams();
+  const filter = params.get("filter");
+  const isShortsOnly = !!params.get("only-shorts");
+  const filteredMovies = useMemo(() => {
+    if (!filter && !isShortsOnly) return savedMovies;
+    return filterMovies(savedMovies, filter, isShortsOnly);
+  }, [savedMovies, filter, isShortsOnly]);
+  const [firstEntrance, setFirstEntrance] = useState(true);
 
   useEffect(() => {
-    if (savedMovie.length === 0) {
-      setFirstEntrance(true)
+    if (savedMovies.length === 0) {
+      setFirstEntrance(true);
     } else {
-      setFirstEntrance(false)
+      setFirstEntrance(false);
     }
-    filter(searchedMouvie, isCheck, savedMovie)
-  }, [filter, savedMovie, isCheck, searchedMouvie])
+  }, [savedMovies]);
 
   return (
     <>
-      <SearchForm
-        isCheck={isCheck}
-        searchMovies={searchMovies}
-        searchedMovie={searchedMouvie}
-        setIsError={setIsError}
-        firstEntrance={firstEntrance}
-        savedMovie={savedMovie}
-        movies={savedMovie}
-        filter={filter}
-        setIsCheck={setIsCheck}
-      />
+      <SearchForm setIsError={setIsError} savedMovie={savedMovies} />
       <MoviesCardList
         movies={filteredMovies}
         onDelete={onDelete}
         firstEntrance={firstEntrance}
       />
     </>
-  )
+  );
 }

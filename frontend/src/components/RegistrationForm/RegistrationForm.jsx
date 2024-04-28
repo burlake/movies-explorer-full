@@ -20,14 +20,13 @@ export default function RegistrationForm({
       </h2>
       <p className="form__name">{title}</p>
       <Form
-        className="form"
+        className="form btn"
         name={name}
         type="submit"
         titleButton={name === "signup" ? "Зарегистрироваться" : "Войти"}
         children={children}
         isValid={isValid}
         onSubmit={onSubmit}
-        className="btn"
       />
       {name === "signup" ? (
         <p className="login__subtitle">

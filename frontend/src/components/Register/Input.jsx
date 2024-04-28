@@ -20,7 +20,6 @@ export function EmailInput(props) {
   return (
     <Input
       {...props}
-      id="email"
       name="email"
       type="email"
       placeholder={"Email"}

@@ -47,7 +47,7 @@ export default function Register({ onRegister, setIsError, error }) {
         error={errors.email}
       />
       <span id="error_email" className="error_email error_email_invisible">
-        "Формат example@example.ru
+      {errors.email}
       </span>
       <p className="form__name">Пароль</p>
       <Input
@@ -55,7 +55,7 @@ export default function Register({ onRegister, setIsError, error }) {
         type="password"
         placeholder={"Пароль"}
         minLength={3}
-        value={values.password}
+        value={values.password  ?? ""}
         onChange={(evt) => {
           handleChange(evt);
           setIsError(false);

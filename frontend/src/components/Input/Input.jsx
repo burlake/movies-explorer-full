@@ -9,11 +9,12 @@ export default function Input({ name, isInputValid, error, ...props }) {
     <>
       <input
         {...props}
+        //value={textValue} //для убирания ошибки
         name={name}
         required
         className={`${(name =
           "name" || name === "password" || name === "email"
-            ? "login__input"
+            ? "login__input "
             : "popup__input")}
           ${
             isInputValid === undefined || isInputValid

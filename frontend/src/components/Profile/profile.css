@@ -98,6 +98,16 @@
   grid-template-columns: 1fr 4fr;
 }
 
+#profile__input{
+  border-bottom: transparent;
+  text-align: right;
+}
+
+.login__input:last-child {
+  border-bottom: transparent;
+  text-align: right;
+}
+
 .profile__text:first-of-type {
   grid-row: 1;
   grid-column: 1;

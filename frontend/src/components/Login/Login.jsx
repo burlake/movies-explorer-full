@@ -1,8 +1,10 @@
 import "./login.css";
 
 import Input from "../Input/Input";
+import { EmailInput, UsernameInput } from "../Register/Input";
 import RegistrationForm from "../RegistrationForm/RegistrationForm";
 import useFormValidation from "../../utils/useFormValidation";
+
 
 export default function Login({ name, onLogin, setIsError }) {
   const { values, errors, isValid, isInputValid, handleChange } =
@@ -22,7 +24,7 @@ export default function Login({ name, onLogin, setIsError }) {
     >
       <div className="login_container">
         <p className="form__name">E-mail</p>
-        <Input
+        {/* <Input
           title="E-mail"
           name="email"
           type="email"
@@ -32,7 +34,14 @@ export default function Login({ name, onLogin, setIsError }) {
           isInputValid={isInputValid.email}
           error={errors.email}
           autoComplete="email"
-        />
+        /> */}
+        <EmailInput
+            className="profile__area profile__area_type_email profile__input"
+            value={values.email ?? ""}
+            isInputValid={isInputValid.email}
+            error={errors.email}
+            onChange={handleChange}
+          />
       </div>
       <div className="login_container">
         <p className="form__name">Пароль</p>
@@ -42,7 +51,7 @@ export default function Login({ name, onLogin, setIsError }) {
           type="password"
           placeholder={"Пароль"}
           minLength={3}
-          value={values.password}
+          value={values.password  ?? ""}
           onChange={handleChange}
           isInputValid={isInputValid.password}
           error={errors.password}

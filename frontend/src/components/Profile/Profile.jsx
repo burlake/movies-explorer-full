@@ -86,6 +86,7 @@ export default function Profile({
         <p className="profile__text">
           E-mail
           <EmailInput
+            id="profile__input" //
             className="profile__area profile__area_type_email profile__input"
             value={values.email ?? ""}
             isInputValid={isInputValid.email}

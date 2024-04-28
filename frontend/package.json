@@ -22,7 +22,7 @@
     "eject": "react-scripts eject",
     "lint": "npx eslint .",
     "lintfix": "npx eslint . --fix",
-    "deploy": "npm run build && -r ./build/* liza2@84.201.164.228:/home/liza/movies-explorer-full/frontend/build"
+    "deploy": "npm run build && scp -r ./build/* liza@51.250.96.174:/home/liza/movies-explorer-full/frontend"
   },
   "eslintConfig": {
     "extends": [

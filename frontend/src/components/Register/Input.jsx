@@ -25,7 +25,7 @@ export function EmailInput(props) {
       type="email"
       placeholder={"Email"}
       autoComplete="email"
-      pattern=".+\.ru$"
+      pattern="^[^\s@]+@[^\s@]+\.[^\s@]+$"  // было - ".+\.ru$" '(ru||com)'
     />
   );
 }

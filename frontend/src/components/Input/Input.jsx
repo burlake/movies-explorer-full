@@ -9,7 +9,7 @@ export default function Input({ name, isInputValid, error, ...props }) {
     <>
       <input
         {...props}
-        //value={textValue} //для убирания ошибки
+        //value={textValue} //для убирает ошибку, но пропадают данные в профайл
         name={name}
         required
         className={`${(name =
